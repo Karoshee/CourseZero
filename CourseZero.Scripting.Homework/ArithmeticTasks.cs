@@ -11,7 +11,12 @@ namespace CourseZero.Scripting.Homework
 
         public static int Factorial(int number)
         {
-            throw new NotImplementedException();
+            int rez = 1;
+            for (int i = 1; i < number; i++)
+            {
+                rez += i; 
+            }
+            return rez;
         }
 
         public static int Remainder(int number, int divider)
