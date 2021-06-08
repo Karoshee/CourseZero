@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseZero.Scripting.Homewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseZero.Scripting.Homework.Tests", "CourseZero.Scripting.Homework.Tests\CourseZero.Scripting.Homework.Tests.csproj", "{845B14A0-DBED-464D-8374-11F8A0AE6CAF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Part 1", "Part 1", "{23323808-50D3-4C68-9B5D-797010967CE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1FC0D99F-219D-4DE3-8D8F-33F57BF30046} = {23323808-50D3-4C68-9B5D-797010967CE3}
+		{C673E3D4-E947-4409-BC84-4EBFEE944632} = {23323808-50D3-4C68-9B5D-797010967CE3}
+		{DC69DFE5-5E62-4AFB-BB7F-E90820BDAF4D} = {23323808-50D3-4C68-9B5D-797010967CE3}
+		{845B14A0-DBED-464D-8374-11F8A0AE6CAF} = {23323808-50D3-4C68-9B5D-797010967CE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C749C66-CCFA-4BD9-93BD-103E11243ADB}
