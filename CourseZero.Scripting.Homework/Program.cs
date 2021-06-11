@@ -1,3 +1,5 @@
-﻿using System;
+﻿// Место для программы составления гороскопа
+using System;
 
-Console.WriteLine("Hello World!");
+
+
