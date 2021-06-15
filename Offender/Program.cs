@@ -20,7 +20,7 @@ if (Question($"{name}, Вам никто не говорил, что у Вас �
         Console.WriteLine("Вот уже лучше");
     }
 }
-else
+else 
 {
     Console.WriteLine("Зато теперь Вы в курсе.");
 }
@@ -54,7 +54,7 @@ int InputAge(string text)
     Console.Write(text + " ");
     int age;
     string ageText = Console.ReadLine();
-    while(int.TryParse(ageText, out age) && age > 0 && age < 120)
+    while(!(int.TryParse(ageText, out age) && age > 0 && age < 120))
     {
         Console.Clear();
         Console.WriteLine("Это некорректный возраст для человека!");        
