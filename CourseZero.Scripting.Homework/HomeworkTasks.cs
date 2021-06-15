@@ -5,20 +5,6 @@ namespace CourseZero.Scripting.Homework
     public static class HomeworkTasks
     {
         /// <summary>
-        /// Вычисление остатка от деления одного числа на другое
-        /// </summary>
-        /// <remarks>
-        /// НЕ использовать встроеннный оператор %
-        /// </remarks>
-        /// <param name="number">Делимое число</param>
-        /// <param name="divider">Делитель</param>
-        /// <returns>Остаток деления</returns>
-        public static int Remainder(int number, int divider)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Вычисление среднего арифиметического массива чисел
         /// </summary>
         /// <remarks>

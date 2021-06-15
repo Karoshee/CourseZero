@@ -12,19 +12,6 @@ namespace CourseZero.Scripting.Homework.Tests
     [TestFixture()]
     public class ArithmeticTasksTests
     {
-        [TestCase(2, 1)]
-        [TestCase(2, 3)]
-        [TestCase(21, 3)]
-        [TestCase(-123124, 120)]
-        [TestCase(122, -6)]
-        [TestCase(-1892, -5)]
-        public void RemainderTest(int num, int div)
-        {
-            var actual = HomeworkTasks.Remainder(num, div);
-            var expected = num % div;
-            actual.Should().Be(expected);
-        }
-
         [Test]
         public void AverangeTest()
         {
