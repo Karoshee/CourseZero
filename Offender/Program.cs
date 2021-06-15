@@ -28,6 +28,7 @@ else
 var age = InputAge("Сколько Вам лет?");
 
 Console.WriteLine("{0} программа поздравляет Вас с тем, что Вам {1} лет", name, age);
+Console.ReadLine();
 
 bool Question(string text)
 {
