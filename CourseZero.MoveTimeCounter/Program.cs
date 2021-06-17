@@ -1,7 +1,7 @@
 ﻿using System;
 
 Console.WriteLine("Программа подсчёта времени пути!");
-
+Console.WriteLine();
 Console.Write("Какое расстояние планируете пройти? ");
 string strLength = Console.ReadLine();
 
@@ -12,6 +12,7 @@ Console.WriteLine("в - сяду на поезд (40 км/ч)");
 Console.WriteLine("г - возьму машину и буду гнать как угорелый (200 км/ч)");
 
 var answer = Console.ReadKey();
+Console.WriteLine();
 
 char moveType = answer.KeyChar;
 
@@ -29,25 +30,25 @@ else
     return;
 }
 
-switch (moveType)
-{
-    case 'а':
-        speed = 5;
-        break;
+//switch (moveType)
+//{
+//    case 'а':
+//        speed = 5;
+//        break;
 
-    case 'б':
-    case 'в':
-        speed = 40;
-        break;
+//    case 'б':
+//    case 'в':
+//        speed = 40;
+//        break;
 
-    case 'г':
-        speed = 200;
-        break;
+//    case 'г':
+//        speed = 200;
+//        break;
 
-    default:
-        Console.WriteLine("Такой вариант не предусмотрен!");
-        return;
-}
+//    default:
+//        Console.WriteLine("Такой вариант не предусмотрен!");
+//        return;
+//}
 
 //// 10км
 

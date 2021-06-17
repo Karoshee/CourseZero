@@ -12,29 +12,6 @@ namespace CourseZero.Scripting.Homework.Tests
     [TestFixture()]
     public class ArithmeticTasksTests
     {
-        [Test]
-        public void AverangeTest()
-        {
-            decimal[] numbers = new[] { 12.2M, 5M, 23M, 9.01M, 101.2M, 91M };
-            var actual = HomeworkTasks.Averange(numbers);
-            var expected = numbers.Average();
-            actual.Should().Be(expected, "исходный массив { 12.2, 5, 23, 9.01, 101.2, 91 }");
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void SortTest(bool isAccendant)
-        {
-            int[] numbers = new[] {1, 12, 7, 213, 1, 0, -1, 23,-20, 21, 1, 0, 1234 };
-            int[] actual = HomeworkTasks.Sort(numbers, isAccendant);
-            int[] expected;
-            if (isAccendant)
-                expected = numbers.OrderBy(x => x).ToArray();
-            else
-                expected = numbers.OrderByDescending(x => x).ToArray();
-            actual.Should().BeEquivalentTo(expected, "исходный массив: {1, 12, 7, 213, 1, 0, -1, 23,-20, 21, 1, 0, 1234 }");
-        }
-
         [Test()]
         public void InvertTest()
         {
@@ -52,19 +29,6 @@ namespace CourseZero.Scripting.Homework.Tests
             const string expected = "яАзВЯЫекВякЗ";
             actual.Should().Be(expected, "исходная строка: " + input);
         }
-
-        [Test()]
-        public void IntersectTest()
-        {
-            var arr1 = new int[] { 1, 2, 4, 5, 6, 7, 8 };
-            var arr2 = new int[] { 2, 5, 0, -1, 3, 10, 18, 1 };
-            var actual = HomeworkTasks.Intersect(arr1, arr2);
-            actual.Should().HaveCount(4);
-            actual.Should().Contain(1);
-            actual.Should().Contain(2);
-            actual.Should().Contain(3);
-            actual.Should().Contain(5);
-         }
 
         [TestCase("XII", 12)]
         [TestCase("X", 10)]
@@ -86,6 +50,38 @@ namespace CourseZero.Scripting.Homework.Tests
         {
             var actual = HomeworkTasks.RomanToInteger(roman);
             actual.Should().Be(expected);
+        }
+
+        [TestCase(12, 4.32321, ExpectedResult = "0012 4.3232 21.1.2020(20:33:41)")]
+        [TestCase(15322, 4.32, ExpectedResult = "15322 4.3200 21.1.2020(20:33:41)")]
+        public string FormatTest(int num, float flNum)
+        {
+            DateTime dt = new DateTime(2020, 1, 21, 20, 33, 41);
+            return HomeworkTasks.Format(num, flNum, dt);
+        }
+
+        [TestCase(1, 2, 3, 4, ExpectedResult = 4)]
+        [TestCase(1, 5, 3, 4, ExpectedResult = 5)]
+        [TestCase(1, 2, 6, 4, ExpectedResult = 6)]
+        [TestCase(10, 2, 3, 4, ExpectedResult = 10)]
+        public int MaxTest(int n1, int n2, int n3, int n4)
+        {
+            return HomeworkTasks.Max(n1, n2, n3, n4);
+        }
+
+        [TestCase("jufzjfajff", ExpectedResult = 'f')]
+        [TestCase("0001102012210", ExpectedResult = '0')]
+        public char MostCommonCharTest(string str)
+        {
+            return HomeworkTasks.MostCommonChar(str);
+        }
+
+        [TestCase("f7d72h92h2923hd9", ExpectedResult ="7729229239")]
+        [TestCase("123421131", ExpectedResult ="123421131")]
+        [TestCase("fdjaklzwvczf", ExpectedResult ="")]
+        public string NumbersOnlyTest(string input)
+        {
+            return HomeworkTasks.NumbersOnly(input);
         }
     }
 }
