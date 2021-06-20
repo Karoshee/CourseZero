@@ -5,29 +5,46 @@ namespace CourseZero.Scripting.Homework
     public static class HomeworkTasks
     {
         /// <summary>
-        /// Вычисление среднего арифиметического массива чисел
+        /// Форматирование значений:
+        /// целое число должно иметь как минимум 4 цифры;
+        /// дробное должно иметь как минимум 4 цифры после запятой;
+        /// дата и время в формате 25.12.2020(22:35:41);
+        /// значения между собой разделить пробелами
         /// </summary>
-        /// <remarks>
-        /// Сумма всех чисел делёная на их количество
-        /// </remarks>
-        /// <param name="numbers">Массив чисел</param>
-        /// <returns>Среднее арифметическое массива</returns>
-        public static decimal Averange(decimal[] numbers)
+        /// <param name="number">Целое значение</param>
+        /// <param name="flNumber">Дробное значение</param>
+        /// <param name="dateTime">Дата и время</param>
+        /// <returns>Вернуть форматированную строку</returns>
+        public static string Format(int number, float flNumber, DateTime dateTime)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Сортировка массива
+        /// Поиск максимального числа из четырёх
         /// </summary>
-        /// <remarks>
-        /// Не создавать второй массив, 
-        /// а проводить сортировку в исходном
-        /// </remarks>
-        /// <param name="numbers">Исходный массив чисел</param>
-        /// <param name="isAccendant">Признак сортировки по возрастанию</param>
-        /// <returns>Отсортированный массив</returns>
-        public static int[] Sort(int[] numbers, bool isAccendant)
+        /// <returns>Максимальное число</returns>
+        public static int Max(int num1, int num2, int num3, int num4)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Вычисление самого часто встречающегося символа
+        /// </summary>
+        /// <param name="input">Входная строка</param>
+        /// <returns>Символ который встречается чаще всего</returns>
+        public static char MostCommonChar(string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Удалить из строки все символы не яляющиеся числами
+        /// </summary>
+        /// <param name="input">Исходная строка</param>
+        /// <returns>Строка состоящая из чисел</returns>
+        public static string NumbersOnly(string input)
         {
             throw new NotImplementedException();
         }
@@ -50,18 +67,6 @@ namespace CourseZero.Scripting.Homework
         /// <param name="inputString">Входящая строка</param>
         /// <returns>Исходящая строка</returns>
         public static string InvertCase(string inputString)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Вернуть массив являющийся пересечением двух других,
-        /// в него должны войти числа имеющиеся в обоих массивах
-        /// </summary>
-        /// <param name="arr1">Первый массив для пересечения</param>
-        /// <param name="arr2">Второй массив для пересечения</param>
-        /// <returns>Итоговый массив</returns>
-        public static int[] Intersect(int[] arr1, int[] arr2)
         {
             throw new NotImplementedException();
         }
