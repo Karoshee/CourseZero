@@ -3,14 +3,8 @@
 Console.WriteLine("Программа определения годности продукта!");
 Console.WriteLine();
 
-Console.Write("Введите дату изготовления продукта:");
-string strDate = Console.ReadLine();
-
-Console.Write("Введите срок годности в днях:");
-string strDays = Console.ReadLine();
-
-DateTime date = DateTime.Parse(strDate);
-int days = int.Parse(strDays);
+DateTime date = GetDateTime();
+int days = GetDays();
 
 date = date.AddDays(days);
 
@@ -23,13 +17,6 @@ else
 
 Console.ReadKey();
 
-//// void method
-//// string method
-//// default text
-//// check date
-//// check date and day
-//// check days
-
 void Print(string text = "")
 {
     Console.WriteLine(text);
@@ -41,42 +28,42 @@ string GetString(string prompt)
     return Console.ReadLine();
 }
 
-strDate = GetString("Введите дату изготовления продукта:");
+//if (!DateTime.TryParse(strDate, out date))
+//{
+//    Print("Дата некорректная");
+//    return;
+//}
 
-if (!DateTime.TryParse(strDate, out date))
+//do
+//{
+//    string strDays = GetString("Введите срок годности в днях:");
+//    if (int.TryParse(strDays, out days) && days > 0)
+//        break;
+//    Print("Срок годности указан некорректно");
+//    Print();
+//} while (true);
+
+DateTime GetDateTime()
 {
-    Print("Дата некорректная");
-    return;
+    string strDate = GetString("Введите дату изготовления продукта:");
+    DateTime dt;
+    while (!DateTime.TryParse(strDate, out dt))
+    {
+        Print("Дата некорректная");
+        strDate = GetString("Введите дату ещё раз:");
+    }
+    return dt;
 }
 
-while (!DateTime.TryParse(strDate, out date))
+int GetDays()
 {
-    Print("Дата некорректная");
-    strDate = GetString("Введите дату ещё раз:");
-}
-
-do
-{
-    strDays = GetString("Введите срок годности в днях:");
-} while (!int.TryParse(strDays, out days) || days < 1);
-
-do
-{
-    strDays = GetString("Введите срок годности в днях:");
-    if (int.TryParse(strDays, out days) && days > 0)
-        break;
-    Print("Срок годности указан некорректно");
-    Print();
-} while (true);
-
-DateTime GetDateTime(string prompt)
-{
-    return date;
-}
-
-int GetDays(string prompt)
-{
-    return days;
+    string strDays;
+    int number;
+    do
+    {
+        strDays = GetString("Введите срок годности в днях:");
+    } while (!int.TryParse(strDays, out number) || number < 1);
+    return number;
 }
 
 
