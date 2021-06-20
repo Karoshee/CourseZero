@@ -17,23 +17,9 @@ int GetNumber(string prompt)
     return num;
 }
 
-Console.WriteLine("Программа расчёта факториала числа");
-Console.WriteLine();
-
-int number = GetNumber("Введите число от 1 до 10");
-
-int factorial = 1;
-
-for (int i = 2; i <= number; i++)
-{
-    factorial *= i;
-}
-
-Console.WriteLine($"{number}! = {factorial}");
-
 int Factorial(int n)
 {
-    if (n == 1)
+    if (n < 2)
     {
         return 1;
     }
@@ -42,3 +28,21 @@ int Factorial(int n)
         return n * Factorial(n - 1);
     }
 }
+
+Console.WriteLine("Программа расчёта факториала числа");
+Console.WriteLine();
+
+int number = GetNumber("Введите число от 1 до 10");
+
+int factorial = Factorial(number);
+
+//int factorial = 1;
+
+//for (int i = 2; i <= number; i++)
+//{
+//    factorial *= i;
+//}
+
+Console.WriteLine($"{number}! = {factorial}");
+
+Console.ReadKey();

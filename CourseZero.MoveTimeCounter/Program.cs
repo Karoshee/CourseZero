@@ -1,15 +1,20 @@
 ﻿using System;
 
+const int speedWalk = 5;
+const int speedTrainOrTrolley = 40;
+const int speedCar = 200;
+
 Console.WriteLine("Программа подсчёта времени пути!");
 Console.WriteLine();
+
 Console.Write("Какое расстояние планируете пройти? ");
 string strLength = Console.ReadLine();
 
 Console.WriteLine("Как планируете двигаться?");
-Console.WriteLine("a - пойду пешком (5 км/ч)");
-Console.WriteLine("б - поеду на троллейбусе (40 км/ч)");
-Console.WriteLine("в - сяду на поезд (40 км/ч)");
-Console.WriteLine("г - возьму машину и буду гнать как угорелый (200 км/ч)");
+Console.WriteLine($"a - пойду пешком ({speedWalk} км/ч)");
+Console.WriteLine($"б - поеду на троллейбусе ({speedTrainOrTrolley} км/ч)");
+Console.WriteLine($"в - сяду на поезд ({speedTrainOrTrolley} км/ч)");
+Console.WriteLine($"г - возьму машину и буду гнать как угорелый ({speedCar} км/ч)");
 
 var answer = Console.ReadKey();
 Console.WriteLine();
@@ -19,11 +24,17 @@ char moveType = answer.KeyChar;
 int speed;
 
 if (moveType == 'а')
-    speed = 5;
+{
+    speed = speedWalk;
+}
 else if (moveType == 'б' || moveType == 'в')
-    speed = 40;
+{
+    speed = speedTrainOrTrolley;
+}
 else if (moveType == 'г')
-    speed = 200;
+{
+    speed = speedCar;
+}
 else
 {
     Console.WriteLine("Такой вариант не предусмотрен!");
@@ -53,6 +64,7 @@ else
 //// 10км
 
 bool isKilometer = strLength.Contains("км");
+
 string digits = "";
 
 foreach (char character in strLength)
@@ -63,22 +75,21 @@ foreach (char character in strLength)
     }
 }
 
-double length = double.Parse(digits);
+decimal length = decimal.Parse(digits);
 if (!isKilometer)
 {
-    length *= 1000;
+    length /= 1000;
 }
 
-double hours = length / speed;
+// decimal
+decimal hours = length / speed;
 
-Console.WriteLine("На путь вы потратите " + hours + " часов");
+decimal seconds = (hours - (int)hours) * 3600;
 
-double seconds = (hours - (int)hours)*3600;
+var r = "На путь вы потратите " + hours + " часов " + seconds / 60 + " минут " + seconds % 60 + " секунд";
 
-Console.WriteLine("На путь вы потратите {0} часов {1} минут {2} секунд", hours, seconds / 60, seconds % 60);
+Console.WriteLine("На путь вы потратите {0} часов {1} минут {2} секунд", (int)hours, (int)(seconds / 60), (int)(seconds % 60));
+
+Console.WriteLine($"На путь вы потратите {(int)hours} часов {(int)(seconds / 60)} минут {(int)(seconds % 60)} секунд");
+
 Console.ReadKey();
-
-//// int seconds
-//// $ interpolation
-//// { } into if statement
-//// speed constaints
