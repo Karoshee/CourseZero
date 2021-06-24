@@ -52,12 +52,13 @@ namespace CourseZero.Scripting.Homework.Tests
             actual.Should().Be(expected);
         }
 
-        [TestCase(12, 4.32321, ExpectedResult = "0012 4.3232 21.1.2020(20:33:41)")]
-        [TestCase(15322, 4.32, ExpectedResult = "15322 4.3200 21.1.2020(20:33:41)")]
-        public string FormatTest(int num, float flNum)
+        [TestCase(12, 4.32321f, "0012 4,3232 21.01.2020(20:33:41)")]
+        [TestCase(15322, 4.32f, "15322 4,3200 21.01.2020(20:33:41)")]
+        public void FormatTest(int num, float flNum, string expected)
         {
             DateTime dt = new DateTime(2020, 1, 21, 20, 33, 41);
-            return HomeworkTasks.Format(num, flNum, dt);
+            var actual = HomeworkTasks.Format(num, flNum, dt);
+            actual.Should().Be(expected);
         }
 
         [TestCase(1, 2, 3, 4, ExpectedResult = 4)]
