@@ -1,13 +1,13 @@
 ﻿namespace CourseZero.Classes
 {
-    public class Car
+    public class Vehicle
     {
         private decimal _fuel;
 
         public decimal Fuel
         {
             get { return _fuel; }
-            private set 
+            protected set 
             {
                 if (value > 0)
                 {
@@ -18,34 +18,34 @@
 
         public decimal MaxFuel { get; set; }
 
-        public string Name { get; private set; }
+        public string Brand { get; protected set; }
 
-        public decimal FuelSpace { get { return MaxFuel - Fuel; } }
+        public virtual decimal FuelSpace { get { return MaxFuel - Fuel; } }
 
-        private decimal Consumption { get; set; }
+        protected decimal BaseConsumption { get; set; }
 
-        public Car() : this("Lada", 45, 10.5M)
+        public Vehicle() : this("Lada", 45, 10.5M)
         {
         }
 
-        public Car(string name, decimal maxFuel, decimal consumption)
+        public Vehicle(string name, decimal maxFuel, decimal consumption)
         {
-            Name = name;
+            Brand = name;
             MaxFuel = maxFuel;
-            Consumption = consumption;
+            BaseConsumption = consumption;
         }
 
-        ~Car()
+        ~Vehicle()
         {
 
         }
 
         public decimal Move(decimal distance)
         {
-            decimal fuelConsumed = Consumption * distance;
+            decimal fuelConsumed = GetConsumption() * distance;
             if (Fuel < fuelConsumed)
             {
-                decimal remainingDistance = (fuelConsumed - Fuel) / Consumption;
+                decimal remainingDistance = (fuelConsumed - Fuel) / GetConsumption();
                 Fuel = 0;
                 return remainingDistance;
             }
@@ -67,5 +67,17 @@
                 Fuel = MaxFuel;
             }
         }
+
+        public static string FuelMark { get; } = "97";
+
+        
+        // "Brand=Lada;Consumption=9,9;MaxFuel=55"
+
+        public virtual decimal GetConsumption()
+        {
+            return BaseConsumption;
+        }
+
     }
+
 }
