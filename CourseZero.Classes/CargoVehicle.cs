@@ -20,7 +20,7 @@ namespace CourseZero.Classes
 
         }
 
-        public override decimal GetConsumption()
+        protected override decimal GetConsumption()
         {
             return base.GetConsumption() * (Weight/1230);
         }

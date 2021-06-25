@@ -1,83 +1,34 @@
-﻿namespace CourseZero.Classes
-{
-    public class Vehicle
-    {
-        private decimal _fuel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-        public decimal Fuel
+namespace CourseZero.Classes
+{
+    public class Car : Vehicle
+    {
+        public static Car Parse(string text)
         {
-            get { return _fuel; }
-            protected set 
+            string[] parameters = text.Split(";");
+            Car car = new();
+            foreach (string parameter in parameters)
             {
-                if (value > 0)
+                string[] splittedParameter = parameter.Split("=");
+                if (splittedParameter[0] == nameof(Brand))
                 {
-                    _fuel = value;
+                    car.Brand = splittedParameter[1];
+                }
+                else if (splittedParameter[0] == nameof(BaseConsumption))
+                {
+                    car.BaseConsumption = decimal.Parse(splittedParameter[1]);
+                }
+                else if (splittedParameter[0] == nameof(MaxFuel))
+                {
+                    car.MaxFuel = decimal.Parse(splittedParameter[1]);
                 }
             }
+            return car;
         }
-
-        public decimal MaxFuel { get; set; }
-
-        public string Brand { get; protected set; }
-
-        public virtual decimal FuelSpace { get { return MaxFuel - Fuel; } }
-
-        protected decimal BaseConsumption { get; set; }
-
-        public Vehicle() : this("Lada", 45, 10.5M)
-        {
-        }
-
-        public Vehicle(string name, decimal maxFuel, decimal consumption)
-        {
-            Brand = name;
-            MaxFuel = maxFuel;
-            BaseConsumption = consumption;
-        }
-
-        ~Vehicle()
-        {
-
-        }
-
-        public decimal Move(decimal distance)
-        {
-            decimal fuelConsumed = GetConsumption() * distance;
-            if (Fuel < fuelConsumed)
-            {
-                decimal remainingDistance = (fuelConsumed - Fuel) / GetConsumption();
-                Fuel = 0;
-                return remainingDistance;
-            }
-            else
-            {
-                Fuel -= fuelConsumed;
-                return 0;
-            }
-        }
-
-        public void FuelUp(decimal fuel)
-        {
-            if (FuelSpace >= fuel)
-            {
-                Fuel += fuel;
-            }
-            else
-            {
-                Fuel = MaxFuel;
-            }
-        }
-
-        public static string FuelMark { get; } = "97";
-
-        
-        // "Brand=Lada;Consumption=9,9;MaxFuel=55"
-
-        public virtual decimal GetConsumption()
-        {
-            return BaseConsumption;
-        }
-
     }
-
 }

@@ -6,41 +6,53 @@ namespace CourseZero.Classes
     {
         static void Main(string[] args)
         {
-            const decimal initialFuel = 42;
-            const decimal distance = 100;
+            const int distance = 10000;
 
-            Vehicle car = new Vehicle("Zebra", 55, 3);
+            Vehicle[] vehicles = GetVehicles();
 
-            Vehicle cargo = CargoVehicle.Parse("Brand=Lada;Consumption=9,9;MaxFuel=55;Weight=1234");
+            decimal totalConsumption = 0;
 
-            Vehicle[] vehicles = new Vehicle[2];
-
-            vehicles[0] = car;
-            vehicles[1] = cargo;
-
-            decimal allConsumption = 0;
-
-            foreach (var veh in vehicles)
+            foreach (Vehicle vehicle in vehicles)
             {
-                allConsumption += veh.GetConsumption();
+                totalConsumption += vehicle.CountFuelFor(distance);
             }
 
-            var cons = cargo.GetConsumption();
+            Console.WriteLine($"Для выбранных  машин расход топлива на {distance} км. составит {totalConsumption:F2} л.");
 
-            var distanceRemain = car.Move(distance);
+            int cargoCarCount = 0;
+            decimal cargoCount = 0;
 
-
-            car.FuelUp(initialFuel);
-            distanceRemain = car.Move(distance);
-
-            if (distanceRemain == 0)
+            for (int i = 0; i < vehicles.Length; i++)
             {
-                Console.WriteLine($"Машина благополучно прошла {distance}км, и затрачено {initialFuel - car.Fuel}л. топлива");
+                if (vehicles[i] is CargoVehicle)
+                {
+                    cargoCount += ((CargoVehicle)vehicles[i]).Weight;
+                    cargoCarCount++;
+                }
             }
-            else
+
+            Console.WriteLine($"Всего в короване {cargoCarCount} грузовых машин c {cargoCount} кг. груза");
+            Console.ReadKey();
+        }
+
+        public static Vehicle[] GetVehicles()
+        {
+            string[] strings =
             {
-                Console.WriteLine($"Машина прошла лишь часть пути в {distance - distanceRemain}км. потратив {initialFuel}л. топлива");
+                "Brand=Lada;BaseConsumption=0,25;MaxFuel=55",
+                "Brand=Kia;BaseConsumption=0,15;MaxFuel=45",
+                "Brand=GAZ;BaseConsumption=0,30;MaxFuel=60;Weight=350",
+                "Brand=KAMAZ;BaseConsumption=0,40;MaxFuel=80;Weight=1230"
+            };
+
+            Vehicle[] vehicles = new Vehicle[strings.Length];
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                vehicles[i] = Vehicle.Parse(strings[i]);
             }
+
+            return vehicles;
         }
     }
 }
