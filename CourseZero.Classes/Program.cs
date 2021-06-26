@@ -24,9 +24,9 @@ namespace CourseZero.Classes
 
             for (int i = 0; i < vehicles.Length; i++)
             {
-                if (vehicles[i] is CargoVehicle)
+                if (vehicles[i] is CargoVehicle cargoVehicle)
                 {
-                    cargoCount += ((CargoVehicle)vehicles[i]).Weight;
+                    cargoCount += cargoVehicle.Weight;
                     cargoCarCount++;
                 }
             }

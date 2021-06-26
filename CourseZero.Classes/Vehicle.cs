@@ -1,6 +1,6 @@
 ﻿namespace CourseZero.Classes
 {
-    public abstract class Vehicle
+    public abstract class Vehicle : IMovable, IHasFuel
     {
         private decimal _fuel;
 
@@ -88,6 +88,18 @@
                 ? CargoVehicle.Parse(text)
                 : Car.Parse(text);
         }
+    }
+
+    public interface IMovable
+    {
+        decimal Move(decimal distance);       
+    }
+
+    public interface IHasFuel : IMovable
+    {
+        decimal Fuel { get; }
+
+        void FuelUp(decimal fuel);
     }
 
 }

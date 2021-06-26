@@ -10,11 +10,6 @@ namespace CourseZero.Classes
     {
         public decimal Weight { get; set; }
 
-        public override decimal FuelSpace
-        {
-            get { return MaxFuel - Fuel * 2; }
-        }
-
         public CargoVehicle()
         {
 
