@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseZero.Classes.SomeClass;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CourseZero.Classes
 {
     public class Stack<T> : IEnumerable<T>
     {
-        private class Element<TElement> where TElement: T
+        private class Element<TElement> where TElement : T
         {
             public Element<TElement> Next { get; set; }
 
@@ -35,22 +36,39 @@ namespace CourseZero.Classes
             }
         }
 
+        public void Add(T item)
+        {
+            First = new Element<T>()
+            {
+                Value = item,
+                Next = First
+            };
+
+            if (First.Next is not null)
+            {
+                First.Next.Previous = First;
+            }
+            Count++;
+        }
+
         public T this[int index]
         {
-            get
+            get 
             {
                 Element<T> current = First;
                 int i = 0;
-                while (current != null)
+                while (current is not null)
                 {
                     if (i == index)
+                    {
                         return current.Value;
+                    }
                     current = current.Next;
                     i++;
                 }
                 return default(T);
             }
-            set
+            set 
             {
                 Element<T> current = First;
                 int i = 0;
@@ -64,60 +82,11 @@ namespace CourseZero.Classes
             }
         }
 
-        public void Add(T item)
-        {
-            First = new()
-            {
-                Value = item,
-                Next = First
-            };
-            if (First.Next is not null)
-                First.Next.Previous = First;
-            Count++;
-        }
+
 
         public bool RemoveAt(int index)
         {
-            if (Count < 1)
-                return false;
-            if (Count == 1)
-            {
-                if (index == 0)
-                {
-                    First = null;
-                }
-                return false;
-            }
-
-            Element<T> current = First;
-
-            int i = 0;
-            while (current != null)
-            {
-                if (i == index)
-                {
-                    if (current.Previous is not null)
-                        current.Previous.Next = current.Next;
-                    else
-                        First = current.Next;
-
-                    if (current.Next is not null)
-                    {
-                        current.Next.Previous = current.Previous;
-                    }
-                    else
-                    {
-                        current.Previous.Next = null;
-                    }
-                    Count--;
-                    current.Next = null;
-                    current.Previous = null;
-                    return true;
-                }
-                current = current.Next;
-                i++;
-            }
-            return false;
+            return true;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -132,34 +101,23 @@ namespace CourseZero.Classes
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            Element<T> current = First;
-            while (current != null)
-            {
-                yield return current.Value;
-                current = current.Next;
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"[{string.Join(", ", this.Select(x => x.ToString()).ToArray())}]";
+            return GetEnumerator();
         }
 
         private class StackEnumerator : IEnumerator<T>
         {
             public Element<T> First { get; }
 
-
-            public Element<T> CurrentElement {get; private set;}
+            public Element<T> CurrentElement { get; private set; }
 
             public StackEnumerator(Element<T> first)
             {
                 CurrentElement = First = first;
             }
 
-            public T Current { get => CurrentElement.Value; }
+            public T Current { get { return CurrentElement.Value; }  }
 
-            object IEnumerator.Current { get => Current; }
+            object IEnumerator.Current { get { return Current; } }
 
             public void Dispose()
             {
@@ -178,50 +136,6 @@ namespace CourseZero.Classes
                 CurrentElement = First;
             }
         }
-
-        // Делегаты
-        public delegate int Comparer(T value1, T value2);
-
-        public void Sort(Comparer comparer)
-        {
-            Element<T> maximum, 
-                current = First,
-                comparable;
-
-            while (current is not null)
-            {
-                maximum = current;
-                comparable = current.Next;
-                while(comparable is not null)
-                {
-                    if (comparer(comparable.Value, maximum.Value) > 0)
-                        maximum = comparable;
-                    comparable = comparable.Next;
-                }
-                _PushToTop(maximum);
-                current = maximum.Next;
-            }
-        }
-
-        private void _PushToTop(Element<T> element)
-        {
-            if (element != First)
-            {
-                Element<T> current = First;
-                int index = 0;
-                while (current is not null)
-                {
-                    if(current == element)
-                        break;
-                    index++;
-                    current = current.Next;
-                }
-
-                RemoveAt(index);
-                Add(element.Value);
-            }
-        }
-
     }
 
     

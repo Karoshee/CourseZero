@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CourseZero.Classes.Events
 {
-    public class EventSource : INotifyPropertyChanged
+    public class EventSource 
     {
         private int _value;
 
@@ -17,15 +17,8 @@ namespace CourseZero.Classes.Events
             set 
             {
                 _value = value; 
-                OnPropertyChanged(nameof(Value));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

@@ -10,7 +10,8 @@ namespace CourseZero.Classes
             int i = 1;
             ref int j = ref i;
             object o = i;
-            i = 2;
+            object o1 = 1;
+
             Box b1 = new() { Value = 1 };
             Box b2 = b1;
             Box b3 = new() { InnerBox = b1 };
@@ -19,8 +20,12 @@ namespace CourseZero.Classes
             string s2 = s1;
             s1.Replace("1", "9");
 
-            Stack<int> stack = new(2, 1, 3, 4, 0, 9, 10);
-            stack.Sort((i1, i2) => i1 - i2);
+            Stack<int> stack = new Stack<int>(1,2,4,6,0,9);
+            foreach (int item in stack)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadKey();
         }
 
         public static void RunVehicles()

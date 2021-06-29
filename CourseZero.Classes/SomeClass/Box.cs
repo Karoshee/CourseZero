@@ -12,18 +12,20 @@ namespace CourseZero.Classes.SomeClass
 
         public int Value { get; set; }
 
+        public int Value1 { get; set; }
+
+        public string MyProperty { get; set; }
+
         public override string ToString()
         {
             if (InnerBox is not null)
                 return "InnerBox=" + InnerBox.ToString();
-            return "Value="+Value;
+            return "Value=" + Value;
         }
 
         public override int GetHashCode()
         {
-            if (InnerBox is not null)
-                return InnerBox.GetHashCode() ^ Value;
-            return Value;
+            return Value ^ Value1 ^ MyProperty.GetHashCode();
         }
 
         public override bool Equals(object obj)

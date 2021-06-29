@@ -12,24 +12,5 @@ namespace CourseZero.Classes.Events
 
         public EventSource Source { get; private set; }
 
-        public void Subscribe(EventSource source)
-        {
-            Source = source;
-            source.PropertyChanged += SourceValuePropertyChanged;
-        }
-
-        private void SourceValuePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            Value = ((EventSource)sender).Value;
-        }
-
-        public void Unsubscribe()
-        {
-            if (Source is not null)
-            {
-                Source.PropertyChanged -= SourceValuePropertyChanged;
-                Source = null;
-            }
-        }
     }
 }
