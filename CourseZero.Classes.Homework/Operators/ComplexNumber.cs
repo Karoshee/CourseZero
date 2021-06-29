@@ -42,11 +42,6 @@ namespace CourseZero.Classes.Homework.Operators
             throw new NotImplementedException();
         }
 
-        public static ComplexNumber operator ^(ComplexNumber number1, ComplexNumber number2)
-        {
-            throw new NotImplementedException();
-        }
-
         public static implicit operator ComplexNumber(int i)
         {
             throw new NotImplementedException();

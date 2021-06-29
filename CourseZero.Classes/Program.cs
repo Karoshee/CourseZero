@@ -1,10 +1,29 @@
-﻿using System;
+﻿using CourseZero.Classes.SomeClass;
+using System;
 
 namespace CourseZero.Classes
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            int i = 1;
+            ref int j = ref i;
+            object o = i;
+            i = 2;
+            Box b1 = new() { Value = 1 };
+            Box b2 = b1;
+            Box b3 = new() { InnerBox = b1 };
+            b1.Value = 2;
+            string s1 = "123123";
+            string s2 = s1;
+            s1.Replace("1", "9");
+
+            Stack<int> stack = new(2, 1, 3, 4, 0, 9, 10);
+            stack.Sort((i1, i2) => i1 - i2);
+        }
+
+        public static void RunVehicles()
         {
             const int distance = 10000;
 
