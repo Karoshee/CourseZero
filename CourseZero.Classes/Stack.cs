@@ -10,13 +10,13 @@ namespace CourseZero.Classes
 {
     public class Stack<T> : IEnumerable<T>
     {
-        private class Element<TElement> where TElement : T
+        private class Element
         {
-            public Element<TElement> Next { get; set; }
+            public Element Next { get; set; }
 
-            public Element<TElement> Previous { get; set; }
+            public Element Previous { get; set; }
 
-            public TElement Value { get; set; }
+            public T Value { get; set; }
 
             public override string ToString()
             {
@@ -24,7 +24,7 @@ namespace CourseZero.Classes
             }
         }
 
-        private Element<T> First { get; set; }
+        private Element First { get; set; }
 
         public int Count { get; private set; }
 
@@ -38,7 +38,7 @@ namespace CourseZero.Classes
 
         public void Add(T item)
         {
-            First = new Element<T>()
+            First = new Element()
             {
                 Value = item,
                 Next = First
@@ -53,9 +53,9 @@ namespace CourseZero.Classes
 
         public T this[int index]
         {
-            get 
+            get
             {
-                Element<T> current = First;
+                Element current = First;
                 int i = 0;
                 while (current is not null)
                 {
@@ -68,9 +68,9 @@ namespace CourseZero.Classes
                 }
                 return default(T);
             }
-            set 
+            set
             {
-                Element<T> current = First;
+                Element current = First;
                 int i = 0;
                 while (current != null)
                 {
@@ -82,21 +82,63 @@ namespace CourseZero.Classes
             }
         }
 
-
+        private Element GetByIndex(int index)
+        {
+            int i = 0;
+            foreach (Element item in this.GetElements())
+            {
+                if (i == index)
+                    return item;
+                i++;
+            }
+            return null;
+        }
 
         public bool RemoveAt(int index)
         {
+            if (index < 0 || index >= Count)
+                return false;
+
+            Element deletedElement = GetByIndex(index);
+            Element next = deletedElement.Next;
+            Element previous = deletedElement.Previous;
+
+            if (previous is null)
+            {
+                First = next;
+            }
+            else
+            {
+                previous.Next = next;
+            }
+
+            if (next is not null)
+            {
+                next.Previous = previous;
+            }
+            Count--;
             return true;
+        }
+
+        private IEnumerable<Element> GetElements()
+        {
+            Element current = First;
+            while (current != null)
+            {
+                yield return current;
+                current = current.Next;
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            Element<T> current = First;
-            while (current != null)
-            {
-                yield return current.Value;
-                current = current.Next;
-            }
+            //Element current = First;
+            //while (current != null)
+            //{
+            //    yield return current.Value;
+            //    current = current.Next;
+            //}
+            return new StackEnumerator(First);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -104,15 +146,84 @@ namespace CourseZero.Classes
             return GetEnumerator();
         }
 
+        public override string ToString()
+        {
+            return $"[{string.Join(", ", this)}]";
+        }
+
+        public static Stack<T> operator+(Stack<T> stack1, Stack<T> stack2)
+        {
+            var result = new Stack<T>();
+            foreach (var item in stack1)
+            {
+                result.Add(item);
+            }
+            foreach (var item in stack2)
+            {
+                result.Add(item);
+            }
+            return result;
+        }
+
+        public static explicit operator Stack<T>(T[] items)
+        {
+            return new Stack<T>(items);
+        }
+
+        public delegate int Compare(T item1, T item2);
+
+        public void Sort(Compare comparer)
+        {
+            Element maximum, current = null;
+            for (int i = 0; i < Count; i++)
+            {
+                maximum = GetByIndex(i);
+                for (int j = i + 1; j < Count; j++)
+                {
+                    current = GetByIndex(j);
+                    if (comparer(current.Value, maximum.Value) > 0)
+                    {
+                        maximum = current;
+                    }
+                }
+                _MoveToFirst(maximum);
+                current = null;
+            }
+        }
+
+        private void _MoveToFirst(Element maximum)
+        {
+            if (maximum == First)
+                return;
+
+            var index = IndexOf(maximum);
+            if(RemoveAt(index))
+            {
+                Add(maximum.Value);
+            }
+        }
+
+        private int IndexOf(Element element)
+        {
+            int i = 0;
+            foreach (var item in GetElements())
+            {
+                if (item == element)
+                    return i;
+                i++;
+            }
+            return -1;
+        }
+
         private class StackEnumerator : IEnumerator<T>
         {
-            public Element<T> First { get; }
+            public Element First { get; }
 
-            public Element<T> CurrentElement { get; private set; }
+            public Element CurrentElement { get; private set; }
 
-            public StackEnumerator(Element<T> first)
+            public StackEnumerator(Element first)
             {
-                CurrentElement = First = first;
+                First = first;
             }
 
             public T Current { get { return CurrentElement.Value; }  }
@@ -125,18 +236,23 @@ namespace CourseZero.Classes
 
             public bool MoveNext()
             {
+                if (CurrentElement is null)
+                {
+                    CurrentElement = First;
+                    return true;
+                }
                 if (CurrentElement.Next is null)
                     return false;
-                CurrentElement = CurrentElement.Next;
+                CurrentElement = CurrentElement.Next; // ??
                 return true;
             }
 
             public void Reset()
             {
-                CurrentElement = First;
+                CurrentElement = null;
             }
         }
     }
 
-    
+
 }

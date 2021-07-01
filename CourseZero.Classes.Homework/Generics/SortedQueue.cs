@@ -28,8 +28,14 @@ namespace CourseZero.Classes.Homework.Generics
         /// <param name="index">Порядковый номер элемента</param>
         public T this[int index]
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                return default(T);
+            }
+            set
+            {
+
+            }
         }
 
         /// <summary>
