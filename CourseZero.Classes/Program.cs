@@ -20,25 +20,19 @@ namespace CourseZero.Classes
             string s2 = s1;
             s1.Replace("1", "9");
 
+
             Stack<int> stack = new Stack<int>(1,2,4,6,0,9);
-            stack.Sort(CompareMethod);
             Console.WriteLine(stack);
-            stack.RemoveAt(5);
-            Console.WriteLine("after removing on index 5");
+            stack.Sort((i1, i2) => i1 - i2);
             Console.WriteLine(stack);
-            stack.RemoveAt(0);
-            Console.WriteLine("after removing on index 0");
-            Console.WriteLine(stack);
-            stack.RemoveAt(1);
-            Console.WriteLine("after removing on index 1");
-            Console.WriteLine(stack);
+
             Console.ReadKey();
         }
 
-        public static int CompareMethod(int i1, int i2)
-        {
-            return i1 - i2;
-        }
+        //public static int CompareMethod(int i1, int i2)
+        //{
+        //    return i1 - i2;
+        //}
 
         public static void RunVehicles()
         {

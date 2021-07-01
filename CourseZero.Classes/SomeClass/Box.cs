@@ -8,11 +8,27 @@ namespace CourseZero.Classes.SomeClass
 {
     public class Box
     {
+        private int _value;
+
         public Box InnerBox { get; set; }
 
-        public int Value { get; set; }
+        public int Value 
+        { 
+            get => _value; 
+            set => _value = value; 
+        }
 
-        public int Value1 { get; set; }
+        //public decimal DecimalValue => (decimal)Value;
+
+        public decimal DecimalValue
+        {
+            get
+            {
+                return (decimal)Value;
+            }
+        }
+
+        public int Value1 { get; set; } = 1;
 
         public string MyProperty { get; set; }
 
