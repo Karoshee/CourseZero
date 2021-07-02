@@ -166,6 +166,26 @@ namespace CourseZero.Classes
             }
             return -1;
         }
+
+        public static Stack<T> operator +(Stack<T> stack1, Stack<T> stack2)
+        {
+            var result = new Stack<T>();
+            foreach (var item in stack1)
+            {
+                result.Add(item);
+            }
+            foreach (var item in stack2)
+            {
+                result.Add(item);
+            }
+            return result;
+        }
+
+        public static explicit operator Stack<T>(T[] items)
+        {
+            return new Stack<T>(items);
+        }
+
     }
 
 

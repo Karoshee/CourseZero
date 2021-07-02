@@ -11,6 +11,7 @@ namespace CourseZero.Classes
             ref int j = ref i;
             object o = i;
             object o1 = 1;
+            Console.WriteLine(2.3);
 
             Box b1 = new() { Value = 1 };
             Box b2 = b1;
@@ -21,18 +22,27 @@ namespace CourseZero.Classes
             s1.Replace("1", "9");
 
 
-            Stack<int> stack = new Stack<int>(1,2,4,6,0,9);
+            Stack<char> stack = new Stack<char>();
+            bool continueInput;
+            do
+            {
+                Console.Write("Введите символ: ");
+                ConsoleKeyInfo key = Console.ReadKey();
+                Console.WriteLine();
+                continueInput = char.IsLetterOrDigit(key.KeyChar);
+                if (continueInput)
+                {
+                    stack.Add(key.KeyChar);
+                }
+            } while (continueInput);
             Console.WriteLine(stack);
-            stack.Sort((i1, i2) => i1 - i2);
-            Console.WriteLine(stack);
-
             Console.ReadKey();
         }
 
-        //public static int CompareMethod(int i1, int i2)
-        //{
-        //    return i1 - i2;
-        //}
+        public static int CompareMethod(int i1, int i2)
+        {
+            return i1 - i2;
+        }
 
         public static void RunVehicles()
         {

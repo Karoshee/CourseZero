@@ -63,16 +63,8 @@ namespace CourseZero.Classes.Homework.Operators
         }
 
         /// <summary>
-        /// Строковое представление комплексного числа
+        /// Создание хеш-кода комплексного числа
         /// </summary>
-        /// <remarks>
-        /// Варианты представления:
-        /// 2,1 + 2,2i
-        /// 2 + i
-        /// 2
-        /// 2i
-        /// i
-        /// </remarks>
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -92,6 +84,22 @@ namespace CourseZero.Classes.Homework.Operators
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
+        }
+
+        /// <summary>
+        /// Строковое представление комплексного числа
+        /// </summary>
+        /// <remarks>
+        /// Варианты представления:
+        /// 2,1 + 2,2i
+        /// 2 + i
+        /// 2
+        /// 2i
+        /// i
+        /// </remarks>
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

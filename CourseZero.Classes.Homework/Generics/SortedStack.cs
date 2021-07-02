@@ -5,19 +5,19 @@ using System.Collections.Generic;
 namespace CourseZero.Classes.Homework.Generics
 {
     /// <summary>
-    /// Отсортированная очередь элементов
+    /// Отсортированная стек элементов
     /// </summary>
     /// <typeparam name="T">
     /// Любой тип данных, который может сравнивать себя с себеподобными
     /// </typeparam>
-    public class SortedQueue<T> : IEnumerable<T>
+    public class SortedStack<T> : IEnumerable<T>
         where T : IComparable<T>
     {
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="items">Элементы, которые нужно добавить в очередь</param>
-        public SortedQueue(params T[] items)
+        /// <param name="items">Элементы, которые нужно добавить в стек</param>
+        public SortedStack(params T[] items)
         {
 
         }
@@ -32,23 +32,19 @@ namespace CourseZero.Classes.Homework.Generics
             {
                 return default(T);
             }
-            set
-            {
-
-            }
-        }
+         }
 
         /// <summary>
-        /// Добавить элемент в очередь
+        /// Добавить элемент в стек
         /// </summary>
-        /// <param name="item">Элемент для добавления в очередь</param>
+        /// <param name="item">Элемент для добавления в стек</param>
         public void Add(T item)
         {
 
         }
 
         /// <summary>
-        /// Удалить элемент из очереди
+        /// Удалить элемент из стека
         /// </summary>
         /// <param name="index">Порядковый номер элемента</param>
         public void Delete(int index)
@@ -57,25 +53,45 @@ namespace CourseZero.Classes.Homework.Generics
         }
 
         /// <summary>
-        /// Вернуть переборщик значений очереди
+        /// Вернуть переборщик значений стека
         /// </summary>
-        /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Вернуть переборщик значений стека
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Сравнение очереди с другим объектов
+        /// Вернуть порядковый номер элемента
+        /// </summary>
+        /// <param name="item">Элемент, порядковый номер которого ищем</param>
+        /// <returns>Порядковый номер элемента</returns>
+        public int IndexOf(T item)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Посчитать хеш код всех элементов стека
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Сравнение стека с другим объектов
         /// </summary>
         /// <param name="obj">Объект для сравнения</param>
         /// <returns>
-        /// True - если объект это очередь и элементы равны друг другу, иначе false
+        /// True - если объект это стек и элементы равны друг другу, иначе false
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -83,7 +99,7 @@ namespace CourseZero.Classes.Homework.Generics
         }
 
         /// <summary>
-        /// Строковое представление очереди
+        /// Строковое представление стека
         /// </summary>
         /// <remarks>
         /// Вывести в таком виде = "[1, 2, 3, 5, 9]"

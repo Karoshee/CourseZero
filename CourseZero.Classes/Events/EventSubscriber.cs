@@ -12,5 +12,9 @@ namespace CourseZero.Classes.Events
 
         public EventSource Source { get; private set; }
 
+        public EventSubscriber(int value)
+        {
+            Value = value;
+        }
     }
 }

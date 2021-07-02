@@ -28,17 +28,7 @@ namespace CourseZero.Classes.Homework.Shapes
         /// <param name="a">Сторона A</param>
         /// <param name="b">Сторона Б</param>
         /// <param name="alfa">Угол между А и Б</param>
-        public Triangle(decimal a, decimal b, byte alfa)
-        {
-
-        }
-
-        /// <summary>
-        /// Конструктор треугольника
-        /// </summary>
-        /// <param name="a">Сторона А</param>
-        /// <param name="h">Высота к стороне А</param>
-        public Triangle(decimal a, decimal h)
+        public Triangle(decimal a, decimal b, double alfa)
         {
 
         }
