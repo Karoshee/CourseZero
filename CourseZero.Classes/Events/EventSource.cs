@@ -16,9 +16,27 @@ namespace CourseZero.Classes.Events
             get { return _value; }
             set 
             {
-                _value = value; 
+                var odlValue = _value;
+                _value = value;
+                OnPropertyChanged(odlValue);
             }
         }
 
+        public event EventHandler<ValueEventArgs> PropertyChanged;
+
+        protected void OnPropertyChanged(int oldValue)
+        {
+            PropertyChanged?.Invoke(this, new ValueEventArgs(oldValue));
+        }
+    }
+
+    public class ValueEventArgs : EventArgs
+    {
+        public int OldValue { get; private set; }
+
+        public ValueEventArgs(int oldValue)
+        {
+            OldValue = oldValue;
+        }
     }
 }

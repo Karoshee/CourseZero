@@ -1,4 +1,5 @@
-﻿using CourseZero.Classes.SomeClass;
+﻿using CourseZero.Classes.Events;
+using CourseZero.Classes.SomeClass;
 using System;
 
 namespace CourseZero.Classes
@@ -22,20 +23,58 @@ namespace CourseZero.Classes
             s1.Replace("1", "9");
 
 
-            Stack<char> stack = new Stack<char>();
-            bool continueInput;
-            do
-            {
-                Console.Write("Введите символ: ");
-                ConsoleKeyInfo key = Console.ReadKey();
-                Console.WriteLine();
-                continueInput = char.IsLetterOrDigit(key.KeyChar);
-                if (continueInput)
-                {
-                    stack.Add(key.KeyChar);
-                }
-            } while (continueInput);
-            Console.WriteLine(stack);
+            //Stack<char> stack = new Stack<char>();
+
+            //char[] chars = { '3', '1', 'f', 'l', '0' };
+
+            //stack = (Stack<char>)chars;
+
+            //Stack<char> stack1 = new('4', 'v', ',');
+
+            //var union = stack + stack1;
+
+            //bool continueInput = true;
+            //do
+            //{
+            //    Console.Write("Введите символ: ");
+            //    ConsoleKeyInfo key = Console.ReadKey();
+            //    Console.WriteLine();
+            //    continueInput = char.IsLetterOrDigit(key.KeyChar);
+            //    if (continueInput)
+            //    {
+            //        stack.Add(key.KeyChar);
+            //    }
+
+            //} while (continueInput);
+
+            EventSource source = new();
+
+            EventSubscriber subscriber1 = new(3);
+            EventSubscriber subscriber2 = new(2);
+            EventSubscriber subscriber3= new(4);
+
+            Stack<EventSubscriber> subStack = new();
+
+            subStack.Add(subscriber1);
+            subStack.Add(subscriber2);
+            subStack.Add(subscriber3);
+
+            subStack.Sort((i1, i2) => i1.Value - i2.Value);
+
+            subscriber1.Subscribe(source);
+            subscriber1.PropertyChanged += (sender, e) => 
+                subStack.Sort((i1, i2) => i1.Value - i2.Value);
+
+            source.Value = 1;
+
+            source.Value = 4;
+
+            source.Value = 5;
+
+            subscriber1.UnSubscribe();
+
+            source.Value = 1;
+
             Console.ReadKey();
         }
 
