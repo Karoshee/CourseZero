@@ -5,4 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CourseZero.Extensions.Library\CourseZero.Extensions.Library.csproj" />
+  </ItemGroup>
+
 </Project>
