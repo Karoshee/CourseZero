@@ -1,5 +1,6 @@
 ﻿using CourseZero.Classes.Events;
 using CourseZero.Classes.SomeClass;
+using System.Linq;
 using System;
 
 namespace CourseZero.Classes
@@ -62,7 +63,7 @@ namespace CourseZero.Classes
             subStack.Sort((i1, i2) => i1.Value - i2.Value);
 
             subscriber1.Subscribe(source);
-            subscriber1.PropertyChanged += (sender, e) => 
+            subscriber1.PropertyChanged += (sender, e) =>
                 subStack.Sort((i1, i2) => i1.Value - i2.Value);
 
             source.Value = 1;
