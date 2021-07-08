@@ -81,7 +81,10 @@
             return BaseConsumption;
         }
 
-
+        public override string ToString()
+        {
+            return Brand;
+        }
         public static Vehicle Parse(string text)
         {
             return text.Contains(nameof(CargoVehicle.Weight) + "=")
