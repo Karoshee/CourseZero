@@ -1,4 +1,5 @@
 ﻿using System;
+using CourseZero.Extensions.Library;
 
 namespace CourseZero.Extensions
 {
@@ -6,7 +7,19 @@ namespace CourseZero.Extensions
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string[] strings = 
+                { 
+                    "string 1", 
+                    "123,", 
+                    "7 yf " 
+                };
+
+            string combined = strings.Join(" ");
+
+            //combined = ExtensionMethods.Method(combined);
+            combined = combined.Method();
+            Console.WriteLine(combined);
+            Console.ReadKey();
         }
 
         public static Vehicle[] GetVehicles()
