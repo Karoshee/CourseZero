@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseZero.Extensions.Library.Cars;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,11 @@ namespace CourseZero.Classes
 {
     public class CargoVehicle : Vehicle
     {
-        public decimal Weight { get; set; }
+        public List<Cargo> CargoBoxes { get; private set; }
+            = new List<Cargo>();
+
+        public decimal Weight
+            => CargoBoxes.Sum(b => b.Weight);
 
         public CargoVehicle()
         {
@@ -41,7 +46,8 @@ namespace CourseZero.Classes
                 }
                 else if (splittedParameter[0] == nameof(Weight))
                 {
-                    car.Weight = decimal.Parse(splittedParameter[1]);
+                    string[] weights = splittedParameter[1].Split("|");
+                    car.CargoBoxes.AddRange(weights.Select(w => new Cargo() { Weight = decimal.Parse(w) }));
                 }
             }
             return car;
