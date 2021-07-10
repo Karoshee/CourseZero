@@ -9,7 +9,8 @@ namespace CourseZero.Reflection
 {
     public abstract class BaseClass
     {
-        [Description("Внутренний текст")]
+        [Description("Введите внутренний текст:")]
+        [Index(5)]
         public virtual string InnerText { get; set; }
 
         protected abstract void OnPropertyChanged(string propertyName);

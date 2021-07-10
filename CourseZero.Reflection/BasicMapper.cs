@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Linq;
 
 namespace CourseZero.Reflection
 {
@@ -8,11 +9,24 @@ namespace CourseZero.Reflection
 
         public static T MapTo<T>(this T input)
         {
+            //Type type = input.GetType();
             Type type = typeof(T);
 
-            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            ConstructorInfo constructor = type
+                .GetConstructors()
+                .FirstOrDefault(c => c.GetParameters().Length == 0);
 
-            object output = Activator.CreateInstance(type);
+            if (constructor == default(ConstructorInfo))
+                throw new ArgumentException("У этого типа нет конструктора без параметров, а должен быть");
+
+            T output = (T)Activator.CreateInstance(type);
+
+            PropertyInfo[] properties = type.GetProperties(
+                BindingFlags.Public | 
+                BindingFlags.NonPublic | 
+                BindingFlags.GetProperty | 
+                BindingFlags.SetProperty | 
+                BindingFlags.Instance);
 
             foreach (PropertyInfo property in properties)
             {
@@ -20,8 +34,19 @@ namespace CourseZero.Reflection
                 property.SetValue(output, value);
             }
 
-            return (T)output;
+            return output;
         }
+
+        //public static CustomClass MapTo(CustomClass input)
+        //{
+        //    CustomClass output = new()
+        //    {
+        //        Index = input.Index,
+        //        InnerText = input.InnerText,
+        //        Text = input.Text
+        //    };
+        //    return output;
+        //}
 
     }
 }

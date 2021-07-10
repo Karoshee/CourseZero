@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace CourseZero.Reflection
 {
@@ -43,7 +38,7 @@ namespace CourseZero.Reflection
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void DoTheThing()
+        private void DoTheThing()
         {
             Index++;
         }
