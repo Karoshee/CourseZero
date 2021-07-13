@@ -43,6 +43,17 @@ namespace CourseZero.Reflection
             Index++;
         }
 
+        public void Do()
+        {
+            Index++;
+        }
+
+        public void Deconstruct(out string text, out int index)
+        {
+            text = this.Text;
+            index = this.Index;
+        }
+
         public static CustomClass Build()
         {
             return new CustomClass();

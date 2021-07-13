@@ -10,6 +10,25 @@ namespace CourseZero.Reflection
     {
         static void Main(string[] args)
         {
+            using (CustomClass disposableObject = new CustomClass(2, "343424"))
+            { 
+                disposableObject.Do();
+                (string text, int ind) = disposableObject;
+            }
+
+            //CustomClass disposableObject1 = null;
+            //try
+            //{
+            //    disposableObject1 = new CustomClass(2, "343424");
+            //    disposableObject1.Do();
+            //}
+            //finally
+            //{
+            //    disposableObject1.Dispose();
+            //}
+
+
+
             CustomClass x = CustomClass.Build();
             x.InnerText = "text";
             x.Text = "111";
