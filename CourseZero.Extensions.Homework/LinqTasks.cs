@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CourseZero.Classes;
+using CourseZero.Extensions.Library.Cars;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +24,41 @@ namespace CourseZero.Extensions.Homework
         {
             throw new NotImplementedException();
         }
+
+        public static string[] GetCarNames(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string[] GetCarsCount(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static decimal WeightOfLastKamaz(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Car[] GetCarsWithLesserConsumption(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Vehicle[] GetUnrepetableVehicles(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Cargo[] GetAllCargoBoxesSortedByWeight(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static decimal GetFuelCountForAllCars(string[] carStrings)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
