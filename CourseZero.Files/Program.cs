@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.IO.Enumeration;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -9,31 +11,31 @@ namespace CourseZero.Files
     {
         static void Main(string[] args)
         {
-            MakeReadersAndWriters();
+            WithoutReadersAndStreams();
             Console.ReadKey();
         }
 
         public static void DoFileSystem()
         {
-            string path = "C:\\Windows\\System";
+            string path = @"C:\Windows\System";
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             string root = allDrives[0].RootDirectory.FullName;
             string[] dirs = Directory.GetDirectories(root);
-            string[] files = Directory.GetFiles(dirs[0]);
-            FileInfo fileinfo = new FileInfo(files[0]);
+            string[] files = Directory.GetFiles(dirs[4]);
+            FileInfo fileinfo = new FileInfo(files.First());
         }
 
         public static void MakeStreams()
         {
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "binfile.txt");
+            string filename = Path.Combine(documentsPath, "binfile.bin");
 
-            FileStream stream = File.Open(filename, FileMode.OpenOrCreate, FileAccess.Write);
+            Stream stream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
             byte[] bytes = { 10, 21, 43, 103, 100, 123, 200 };
             stream.Write(bytes);
             stream.Close();
 
-            using (stream = File.Open(filename, FileMode.Open, FileAccess.Read))
+            using (stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
                 bytes = new byte[7];
                 stream.Read(bytes, 0, bytes.Length);
@@ -49,7 +51,8 @@ namespace CourseZero.Files
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string filename = Path.Combine(documentsPath, "textfile.txt");
 
-            using (StreamWriter writer = new StreamWriter(filename, false, Encoding.Default))
+            //BitConverter.ToChar()
+            using (StreamWriter writer = new StreamWriter(filename, true, Encoding.Default))
             {
                 writer.WriteLine("Текст, который следует записать");
             }
@@ -57,14 +60,17 @@ namespace CourseZero.Files
             using (StreamReader reader = new StreamReader(filename, Encoding.Default))
             {
                 string s = reader.ReadToEnd();
-                Console.WriteLine(s);
+                //Console.WriteLine(s);
             }
 
-            using (Stream stream = File.OpenWrite(filename))
+            using (Stream stream = File.OpenRead(filename))
             {
-                using (TextWriter writer = new StreamWriter(stream, Encoding.Default))
+                if (!stream.CanRead)
+                    return;
+
+                using (TextReader reader = new StreamReader(stream, Encoding.Default))
                 {
-                    writer.WriteLine("Записать весь текст в файл");
+                    Console.WriteLine(reader.ReadLine());
                 }
             }
         }
@@ -74,20 +80,18 @@ namespace CourseZero.Files
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string filename = Path.Combine(documentsPath, "textfile.txt");
 
-            if (!File.Exists(filename))
+            if (File.Exists(filename))
             {
                 string text = File.ReadAllText(filename, Encoding.Default);
                 Console.WriteLine(text);
+                byte[] bytes = File.ReadAllBytes(filename);
             }
             else
             {
-                File.WriteAllText(filename, "Записать весь текст в файл", Encoding.Default);
+                File.AppendText("jfksdajfljdsklfj");
             }
         }
 
-        public static void Serialization()
-        {
 
-        }
     }
 }
