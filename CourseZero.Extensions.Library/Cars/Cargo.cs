@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CourseZero.Extensions.Library.Cars
 {
+    [Serializable]
     public class Cargo
     {
         public decimal Weight { get; set; }

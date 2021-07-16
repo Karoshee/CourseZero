@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace CourseZero.Classes
 {
+    [Serializable]
     public class Car : Vehicle
     {
+
+        public Car(string brand, decimal consumption, int maxFuel)
+        {
+            Brand = brand;
+            BaseConsumption = consumption;
+            MaxFuel = maxFuel;
+        }
+
+        public Car()
+        {
+
+        }
+
         public static Car Parse(string text)
         {
             string[] parameters = text.Split(";");

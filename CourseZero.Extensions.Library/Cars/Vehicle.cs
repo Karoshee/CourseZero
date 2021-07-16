@@ -1,5 +1,8 @@
-﻿namespace CourseZero.Classes
+﻿using System;
+
+namespace CourseZero.Classes
 {
+    [Serializable]
     public abstract class Vehicle : IMovable, IHasFuel
     {
         private decimal _fuel;
@@ -7,7 +10,7 @@
         public decimal Fuel
         {
             get { return _fuel; }
-            protected set
+            set
             {
                 if (value > 0)
                 {
@@ -95,7 +98,7 @@
 
     public interface IMovable
     {
-        decimal Move(decimal distance);       
+        decimal Move(decimal distance);
     }
 
     public interface IHasFuel : IMovable

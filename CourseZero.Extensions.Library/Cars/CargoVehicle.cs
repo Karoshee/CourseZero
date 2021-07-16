@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CourseZero.Classes
 {
+    [Serializable]
     public class CargoVehicle : Vehicle
     {
         public List<Cargo> CargoBoxes { get; private set; }
