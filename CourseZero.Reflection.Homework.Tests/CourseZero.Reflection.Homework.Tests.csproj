@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CourseZero.Extensions.Homework\CourseZero.Extensions.Homework.csproj" />
-    <ProjectReference Include="..\CourseZero.Extensions.Library\CourseZero.Extensions.Library.csproj" />
+    <ProjectReference Include="..\CourseZero.Reflection.Homework\CourseZero.Reflection.Homework.csproj" />
   </ItemGroup>
 
 </Project>
