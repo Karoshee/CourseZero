@@ -18,6 +18,14 @@ namespace CourseZero.Files
             Console.ReadKey();
         }
 
+        private static string _GetFullFileName(string filename)
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), 
+                filename);
+        }
+
+
         public static void DoFileSystem()
         {
             string path = @"C:\Windows\System";
@@ -30,8 +38,7 @@ namespace CourseZero.Files
 
         public static void MakeStreams()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "binfile.bin");
+            var filename = _GetFullFileName("binfile.bin");
 
             Stream stream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
             byte[] bytes = { 10, 21, 43, 103, 100, 123, 200 };
@@ -51,8 +58,7 @@ namespace CourseZero.Files
 
         public static void MakeReadersAndWriters()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "textfile.txt");
+            var filename = _GetFullFileName("textfile.txt");
 
             //BitConverter.ToChar()
             using (StreamWriter writer = new StreamWriter(filename, true, Encoding.Default))
@@ -80,8 +86,7 @@ namespace CourseZero.Files
 
         public static void WithoutReadersAndStreams()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "textfile.txt");
+            var filename = _GetFullFileName("textfile.txt");
 
             if (File.Exists(filename))
             {
@@ -97,8 +102,7 @@ namespace CourseZero.Files
 
         public static void Serialization()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "Book.xml");
+            string filename = _GetFullFileName("Book.xml");
 
             Book book = new Book()
             {
@@ -113,8 +117,7 @@ namespace CourseZero.Files
                 Price = 20.33M
             };
 
-            XmlSerializer xmlSerializer = new XmlSerializer(book.GetType());
-
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Book));
             using (Stream stream = new FileStream(filename, FileMode.OpenOrCreate))
             {
                 xmlSerializer.Serialize(stream, book);
@@ -127,27 +130,48 @@ namespace CourseZero.Files
                 book = xmlSerializer.Deserialize(stream) as Book;
             }
 
-            string json = JsonSerializer.Serialize(book, book.GetType());
+            book = Deserialize<Book>(filename);
+            book.Serialize(filename);
+
+            string json = JsonSerializer.Serialize(book);
 
             book = null;
 
-            book = JsonSerializer.Deserialize(json, typeof(Book)) as Book;
+            book = JsonSerializer.Deserialize<Book>(json);
+        }
+
+        public static T Deserialize<T>(string filename)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Book));
+
+            using (Stream stream = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                return (T)xmlSerializer.Deserialize(stream);
+            }
         }
 
         public static void XmlParsing()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = Path.Combine(documentsPath, "Book.xml");
+            string filename = _GetFullFileName("Book.xml");
 
             XDocument document = XDocument.Load(filename);
 
             XElement node = document.Root;
 
-            string[] properties = node.Elements().Select(el => el.ToString()).ToArray();
+            string[] elementNames = node.Elements().Select(el => el.Name.LocalName).ToArray();
 
             node = node.Element("Author");
 
             string lastname = node.Element("LastName").Value;
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Person));
+            
+            node.Name = "Person";
+            
+            using (StringReader reader = new StringReader(node.ToString()))
+            {
+                var author = xmlSerializer.Deserialize(reader) as Person;
+            }
 
             DateTime date = (DateTime)document.Root.Element("PublicationDate");
 
@@ -173,11 +197,11 @@ namespace CourseZero.Files
 
             JObject json = JObject.Parse(jsonString);
 
-            var firstname = json["Author"]["FirstName"].Value<string>();
+            string title = json["Title"].ToString();
 
-            var date = json.Value<DateTime>("PublicationDate");
+            string lastname = json["Author"]["LastName"].ToString();
 
-            var author = json.GetValue("Author").ToObject<Person>();
+            var author = json["Author"].ToObject<Person>();
 
             json.Add("NewProperty", 12345);
         }
